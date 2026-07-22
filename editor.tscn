@@ -2,12 +2,13 @@
 
 [ext_resource type="FontFile" uid="uid://kecofg1sm44a" path="res://fonts/IosevkaCharon/IosevkaCharon-Regular.ttf" id="1_q0a35"]
 [ext_resource type="Script" uid="uid://b5k5v60xhv1ta" path="res://metadata.gd" id="1_t27w5"]
-[ext_resource type="Script" uid="uid://0gx31ebl15vh" path="res://editor.gd" id="2_q0a35"]
 [ext_resource type="StyleBox" uid="uid://daka5epx6el02" path="res://hitsquare.tres" id="3_1ys5w"]
 [ext_resource type="Shader" uid="uid://du2kjgxnwy0f7" path="res://bgDim.gdshader" id="3_gbsbp"]
+[ext_resource type="Script" uid="uid://cflcgu2m58t18" path="res://chart.gd" id="3_k4288"]
 [ext_resource type="StyleBox" uid="uid://cf8ruliyo8aj0" path="res://indicator.tres" id="4_gbsbp"]
 [ext_resource type="Script" uid="uid://cy138wdfpkcfv" path="res://bghandler.gd" id="4_t27w5"]
 [ext_resource type="Script" uid="uid://cl4wgh4r041wg" path="res://setoffset_standalone.gd" id="5_gbsbp"]
+[ext_resource type="Script" uid="uid://cymfajcxo65tm" path="res://fullsize.gd" id="9_8yjtx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t27w5"]
 bg_color = Color(0.17, 0.17, 0.17, 1)
@@ -22,29 +23,29 @@ border_width_top = 2
 border_color = Color(1, 0.7, 0.7900001, 0.7490196)
 corner_detail = 1
 
-[sub_resource type="Theme" id="Theme_8yjtx"]
+[sub_resource type="Theme" id="Theme_0sju6"]
 default_font = ExtResource("1_q0a35")
 default_font_size = 32
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k4288"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_55ssv"]
 shader = ExtResource("3_gbsbp")
 shader_parameter/dim = 0.0
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_gbsbp"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_epypp"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8yjtx"]
-noise = SubResource("FastNoiseLite_gbsbp")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2wjdg"]
+noise = SubResource("FastNoiseLite_epypp")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8yjtx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cl85d"]
 bg_color = Color(1, 1, 1, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3btpq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mtnw7"]
 bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="Theme" id="Theme_3btpq"]
+[sub_resource type="Theme" id="Theme_o3vfj"]
 Panel/styles/panel = ExtResource("3_1ys5w")
 
-[sub_resource type="Theme" id="Theme_7py46"]
+[sub_resource type="Theme" id="Theme_a78pc"]
 Panel/styles/panel = ExtResource("4_gbsbp")
 
 [node name="Node2D" type="Node2D" unique_id=1495857416]
@@ -60,12 +61,14 @@ layout_mode = 0
 offset_right = 1920.0
 theme_override_styles/tabbar_background = SubResource("StyleBoxFlat_t27w5")
 theme_override_styles/tab_selected = SubResource("StyleBoxFlat_k4288")
-current_tab = 0
+current_tab = 1
 
-[node name="Metadata" type="Control" parent="Control/TabContainer" unique_id=2138512662]
+[node name="Metadata" type="Control" parent="Control/TabContainer" unique_id=2138512662 node_paths=PackedStringArray("chart")]
+visible = false
 z_index = -25
 layout_mode = 2
 script = ExtResource("1_t27w5")
+chart = NodePath("../Editor/Chart")
 metadata/_tab_index = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Metadata" unique_id=871848777]
@@ -104,17 +107,19 @@ placeholder_text = "Difficulty Name"
 emoji_menu_enabled = false
 
 [node name="Editor" type="Control" parent="Control/TabContainer" unique_id=1723859839]
-visible = false
 z_index = -25
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Chart" type="Control" parent="Control/TabContainer/Editor" unique_id=116712339]
+[node name="Chart" type="Control" parent="Control/TabContainer/Editor" unique_id=619372637 node_paths=PackedStringArray("musicPlayer")]
 anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
-theme = SubResource("Theme_8yjtx")
-script = ExtResource("2_q0a35")
+theme = SubResource("Theme_0sju6")
+script = ExtResource("3_k4288")
+musicPlayer = NodePath("../music")
+featurePlayerEnabled = true
+featureEditorEnabled = true
 metadata/score = 0.0
 metadata/difficulty = 10.0
 metadata/rating = 0.0
@@ -128,20 +133,48 @@ metadata/ct_okay = 0
 metadata/ct_good = 0
 metadata/ct_perfect = 0
 metadata/combo = 0
-metadata/songTitle = ""
-metadata/songArtist = ""
-metadata/charter = ""
-metadata/difficultyName = ""
 metadata/ct_great = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Control/TabContainer/Editor/Chart" unique_id=2086075921]
-material = SubResource("ShaderMaterial_k4288")
-texture = SubResource("NoiseTexture2D_8yjtx")
+[node name="EditorDetails" type="VBoxContainer" parent="Control/TabContainer/Editor/Chart" unique_id=22293409]
+z_index = 1
+layout_mode = 0
+offset_top = 580.0
+offset_right = 779.0
+offset_bottom = 1080.0
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="snapping" type="RichTextLabel" parent="Control/TabContainer/Editor/Chart/EditorDetails" unique_id=709097578]
+layout_mode = 2
+bbcode_enabled = true
+text = "Snapping to every [color=#f80]1/?[/color]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="note" type="RichTextLabel" parent="Control/TabContainer/Editor/Chart/EditorDetails" unique_id=1810352762]
+layout_mode = 2
+bbcode_enabled = true
+text = "Hold shift to place a note when pressing a key.
+Hold alt to remove a note when pressing a key.
+
+Hold shift to snap motion to the closest note, instead
+of the snapping increment. If nothing is found, snaps
+to the nearest note."
+fit_content = true
+autowrap_mode = 0
+
+[node name="Control" type="Control" parent="Control/TabContainer/Editor/Chart/EditorDetails" unique_id=1097601393]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="bg" type="Sprite2D" parent="Control/TabContainer/Editor/Chart" unique_id=724596999]
+material = SubResource("ShaderMaterial_55ssv")
+texture = SubResource("NoiseTexture2D_2wjdg")
 script = ExtResource("4_t27w5")
 metadata/dim = 0.3
 metadata/offset = Vector2(0.5, 0.5)
 
-[node name="ProgressBar" type="ProgressBar" parent="Control/TabContainer/Editor/Chart" unique_id=99833730]
+[node name="ProgressBar" type="ProgressBar" parent="Control/TabContainer/Editor/Chart" unique_id=1732716207]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -151,14 +184,14 @@ offset_top = -20.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/background = SubResource("StyleBoxFlat_8yjtx")
-theme_override_styles/fill = SubResource("StyleBoxFlat_3btpq")
+theme_override_styles/background = SubResource("StyleBoxFlat_cl85d")
+theme_override_styles/fill = SubResource("StyleBoxFlat_mtnw7")
 value = 100.0
 show_percentage = false
 script = ExtResource("5_gbsbp")
 metadata/offset = Vector2(0.5, 1)
 
-[node name="GridContainer" type="GridContainer" parent="Control/TabContainer/Editor/Chart" unique_id=1576812124]
+[node name="grid" type="GridContainer" parent="Control/TabContainer/Editor/Chart" unique_id=1739686763]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -174,63 +207,62 @@ grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 columns = 3
 
-[node name="note1" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=219693474]
+[node name="note1" type="Panel" parent="Control/TabContainer/Editor/Chart/grid" unique_id=1752256609]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = SubResource("Theme_3btpq")
+theme = SubResource("Theme_o3vfj")
 
-[node name="note2" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=1098094429]
+[node name="note2" type="Panel" parent="Control/TabContainer/Editor/Chart/grid" unique_id=251887519]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = SubResource("Theme_3btpq")
+theme = SubResource("Theme_o3vfj")
 
-[node name="note3" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=514513419]
+[node name="note3" type="Panel" parent="Control/TabContainer/Editor/Chart/grid" unique_id=1749673931]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = SubResource("Theme_3btpq")
+theme = SubResource("Theme_o3vfj")
 
-[node name="note4" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=1519775340]
+[node name="note4" type="Panel" parent="Control/TabContainer/Editor/Chart/grid" unique_id=1647974388]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = SubResource("Theme_3btpq")
+theme = SubResource("Theme_o3vfj")
 
-[node name="note5" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=1141754698]
+[node name="note5" type="Panel" parent="Control/TabContainer/Editor/Chart/grid" unique_id=304517903]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = SubResource("Theme_3btpq")
+theme = SubResource("Theme_o3vfj")
 
-[node name="note6" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=317065495]
+[node name="note6" type="Panel" parent="Control/TabContainer/Editor/Chart/grid" unique_id=2140518938]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = SubResource("Theme_3btpq")
+theme = SubResource("Theme_o3vfj")
 
-[node name="note7" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=395499489]
+[node name="note7" type="Panel" parent="Control/TabContainer/Editor/Chart/grid" unique_id=1915809530]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = SubResource("Theme_3btpq")
+theme = SubResource("Theme_o3vfj")
 
-[node name="note8" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=135521008]
+[node name="note8" type="Panel" parent="Control/TabContainer/Editor/Chart/grid" unique_id=1225766629]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = SubResource("Theme_3btpq")
+theme = SubResource("Theme_o3vfj")
 
-[node name="note9" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=124082858]
+[node name="note9" type="Panel" parent="Control/TabContainer/Editor/Chart/grid" unique_id=799088987]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = SubResource("Theme_3btpq")
+theme = SubResource("Theme_o3vfj")
 
-[node name="hitindicator" type="Panel" parent="Control/TabContainer/Editor/Chart" unique_id=84869820]
+[node name="hitindicator" type="Panel" parent="Control/TabContainer/Editor/Chart" unique_id=2077094694]
 visible = false
-custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
 offset_left = 996.0
 offset_top = 508.0
@@ -239,27 +271,27 @@ offset_bottom = 572.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
-theme = SubResource("Theme_7py46")
+theme = SubResource("Theme_a78pc")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Editor/Chart" unique_id=1708598027]
+[node name="UI" type="VBoxContainer" parent="Control/TabContainer/Editor/Chart" unique_id=1417320293]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="score" type="Label" parent="Control/TabContainer/Editor/Chart/VBoxContainer" unique_id=275652540]
+[node name="score" type="Label" parent="Control/TabContainer/Editor/Chart/UI" unique_id=822598405]
 layout_mode = 2
 theme_override_font_sizes/font_size = 62
 text = "00,000,000"
 
-[node name="rating" type="Label" parent="Control/TabContainer/Editor/Chart/VBoxContainer" unique_id=95965989]
+[node name="rating" type="Label" parent="Control/TabContainer/Editor/Chart/UI" unique_id=328305970]
 layout_mode = 2
 text = "Rating: ..."
 
-[node name="accuracy" type="Label" parent="Control/TabContainer/Editor/Chart/VBoxContainer" unique_id=1022562667]
+[node name="accuracy" type="Label" parent="Control/TabContainer/Editor/Chart/UI" unique_id=67795661]
 layout_mode = 2
 text = "Accuracy: ..."
 
-[node name="Judgement" type="Label" parent="Control/TabContainer/Editor/Chart" unique_id=1830048775]
+[node name="Judgement" type="Label" parent="Control/TabContainer/Editor/Chart" unique_id=1242531783]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -275,6 +307,11 @@ grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="music" type="AudioStreamPlayer" parent="Control/TabContainer/Editor" unique_id=750700130]
+[node name="fade" type="ColorRect" parent="Control/TabContainer/Editor/Chart" unique_id=1445139114]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(1, 1, 1, 0)
+script = ExtResource("9_8yjtx")
 
-[connection signal="chart_loaded" from="Control/TabContainer/Editor/Chart" to="Control/TabContainer/Metadata" method="_on_chart_chart_loaded"]
+[node name="music" type="AudioStreamPlayer" parent="Control/TabContainer/Editor" unique_id=750700130]

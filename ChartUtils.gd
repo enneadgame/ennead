@@ -4,11 +4,11 @@ static var count = 0
 
 ## This returns a number for the difficulty of a chart, based on it's contents.[br]
 static func getChartDifficulty(json) -> float:
-	count += 1
+	count += 100
 	return count
 
 static func colorChartDifficulty(difficulty: float) -> Color:
-	var hue = (120-difficulty*12)/360
+	var hue = (120-(difficulty/1000.0)*12)/360
 	var saturation = 0.5
 	if difficulty >= 15:
 		saturation -= ((difficulty-15)/5)*0.5
@@ -18,20 +18,23 @@ static func colorChartDifficulty(difficulty: float) -> Color:
 
 ## This returns a name for the difficulty based on [param difficulty].[br]
 ## [br]
-## Below 1, the map is labelled Beginner.[br]
-## Between 1 and 3, it is Easy.[br]
-## Between 3 and 5, it is Normal.[br]
-## Between 5 and 10, it is Hard.[br]
-## Between 10 and 15, it is Insane.[br]
-## Between 15 and 20, it is Expert.[br]
-## Between 20 and 30, it is Master.[br]
-## Above 30, it is Challenge.
+## 0-500: Beginner
+## 500-1000: Easy
+## 1000-1500: Normal
+## 1500-2000: Hard
+## 2000-2500: Challenge
+## 2500-3000: Insane
+## 3000-3500: Expert
+## 3500-4000: Extra
+## 4000-4500: Extreme
+## 
 static func nameChartDifficulty(difficulty: float) -> String:
-	if (difficulty < 1.0): return "Beginner"
-	if (difficulty < 3.0): return "Easy"
-	if (difficulty < 5.0): return "Normal"
-	if difficulty < 10.0: return "Hard"
-	if difficulty < 15.0: return "Insane"
-	if difficulty < 20.0: return "Expert"
-	if difficulty < 30.0: return "Master"
-	return "Challenge"
+	if difficulty < 1000.0: return "Easy"
+	if difficulty < 2000.0: return "Normal"
+	if difficulty < 2500.0: return "Hard"
+	if difficulty < 3000.0: return "Challenge"
+	if difficulty < 3500.0: return "Insane"
+	if difficulty < 4000.0: return "Expert"
+	if difficulty < 4500.0: return "Extra"
+	if difficulty < 5000.0: return "Extreme"
+	return "Master"

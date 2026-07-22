@@ -1,23 +1,20 @@
-[gd_scene format=3 uid="uid://vmvdfhyjg3q3"]
+[gd_scene format=3 uid="uid://hikyy0u84mwb"]
 
-[ext_resource type="Script" uid="uid://ibfflt4xcsoc" path="res://gameHandler.gd" id="1_0yhc4"]
-[ext_resource type="Shader" uid="uid://du2kjgxnwy0f7" path="res://bgDim.gdshader" id="2_g1qus"]
-[ext_resource type="Script" uid="uid://cy138wdfpkcfv" path="res://bghandler.gd" id="3_s0vmv"]
-[ext_resource type="FontFile" uid="uid://kecofg1sm44a" path="res://fonts/IosevkaCharon/IosevkaCharon-Regular.ttf" id="4_0sju6"]
-[ext_resource type="Script" uid="uid://cflcgu2m58t18" path="res://chart.gd" id="5_55ssv"]
-[ext_resource type="StyleBox" uid="uid://daka5epx6el02" path="res://hitsquare.tres" id="6_2wjdg"]
-[ext_resource type="Script" uid="uid://cl4wgh4r041wg" path="res://setoffset_standalone.gd" id="6_s0vmv"]
-[ext_resource type="StyleBox" uid="uid://cf8ruliyo8aj0" path="res://indicator.tres" id="7_cl85d"]
-[ext_resource type="Script" uid="uid://cymfajcxo65tm" path="res://fullsize.gd" id="9_s0vmv"]
-
-[sub_resource type="AudioStreamWAV" id="AudioStreamWAV_kdubu"]
+[ext_resource type="FontFile" uid="uid://kecofg1sm44a" path="res://fonts/IosevkaCharon/IosevkaCharon-Regular.ttf" id="1_gfbkc"]
+[ext_resource type="Script" uid="uid://cflcgu2m58t18" path="res://chart.gd" id="2_r3jko"]
+[ext_resource type="Shader" uid="uid://du2kjgxnwy0f7" path="res://bgDim.gdshader" id="3_rsjv3"]
+[ext_resource type="Script" uid="uid://cy138wdfpkcfv" path="res://bghandler.gd" id="4_3eecs"]
+[ext_resource type="Script" uid="uid://cl4wgh4r041wg" path="res://setoffset_standalone.gd" id="5_bpgos"]
+[ext_resource type="StyleBox" uid="uid://daka5epx6el02" path="res://hitsquare.tres" id="6_ft3op"]
+[ext_resource type="StyleBox" uid="uid://cf8ruliyo8aj0" path="res://indicator.tres" id="7_0pw06"]
+[ext_resource type="Script" uid="uid://cymfajcxo65tm" path="res://fullsize.gd" id="8_gwsuc"]
 
 [sub_resource type="Theme" id="Theme_0sju6"]
-default_font = ExtResource("4_0sju6")
+default_font = ExtResource("1_gfbkc")
 default_font_size = 32
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_55ssv"]
-shader = ExtResource("2_g1qus")
+shader = ExtResource("3_rsjv3")
 shader_parameter/dim = 0.0
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_epypp"]
@@ -32,25 +29,19 @@ bg_color = Color(1, 1, 1, 0)
 bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Theme" id="Theme_o3vfj"]
-Panel/styles/panel = ExtResource("6_2wjdg")
+Panel/styles/panel = ExtResource("6_ft3op")
 
 [sub_resource type="Theme" id="Theme_a78pc"]
-Panel/styles/panel = ExtResource("7_cl85d")
+Panel/styles/panel = ExtResource("7_0pw06")
 
-[node name="Node2D" type="Node2D" unique_id=910497461]
-script = ExtResource("1_0yhc4")
-
-[node name="music" type="AudioStreamPlayer" parent="." unique_id=432068164]
-stream = SubResource("AudioStreamWAV_kdubu")
-
-[node name="Chart" type="Control" parent="." unique_id=619372637 node_paths=PackedStringArray("musicPlayer")]
+[node name="Chart" type="Control" unique_id=619372637 node_paths=PackedStringArray("musicPlayer")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 theme = SubResource("Theme_0sju6")
-script = ExtResource("5_55ssv")
-musicPlayer = NodePath("../music")
+script = ExtResource("2_r3jko")
+musicPlayer = NodePath("")
 metadata/score = 0.0
 metadata/difficulty = 10.0
 metadata/rating = 0.0
@@ -66,14 +57,14 @@ metadata/ct_perfect = 0
 metadata/combo = 0
 metadata/ct_great = 0
 
-[node name="bg" type="Sprite2D" parent="Chart" unique_id=724596999]
+[node name="bg" type="Sprite2D" parent="." unique_id=724596999]
 material = SubResource("ShaderMaterial_55ssv")
 texture = SubResource("NoiseTexture2D_2wjdg")
-script = ExtResource("3_s0vmv")
+script = ExtResource("4_3eecs")
 metadata/dim = 0.3
 metadata/offset = Vector2(0.5, 0.5)
 
-[node name="ProgressBar" type="ProgressBar" parent="Chart" unique_id=1732716207]
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1732716207]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -87,10 +78,10 @@ theme_override_styles/background = SubResource("StyleBoxFlat_cl85d")
 theme_override_styles/fill = SubResource("StyleBoxFlat_mtnw7")
 value = 100.0
 show_percentage = false
-script = ExtResource("6_s0vmv")
+script = ExtResource("5_bpgos")
 metadata/offset = Vector2(0.5, 1)
 
-[node name="grid" type="GridContainer" parent="Chart" unique_id=1739686763]
+[node name="grid" type="GridContainer" parent="." unique_id=1739686763]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -106,61 +97,61 @@ grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 columns = 3
 
-[node name="note1" type="Panel" parent="Chart/grid" unique_id=1752256609]
+[node name="note1" type="Panel" parent="grid" unique_id=1752256609]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_o3vfj")
 
-[node name="note2" type="Panel" parent="Chart/grid" unique_id=251887519]
+[node name="note2" type="Panel" parent="grid" unique_id=251887519]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_o3vfj")
 
-[node name="note3" type="Panel" parent="Chart/grid" unique_id=1749673931]
+[node name="note3" type="Panel" parent="grid" unique_id=1749673931]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_o3vfj")
 
-[node name="note4" type="Panel" parent="Chart/grid" unique_id=1647974388]
+[node name="note4" type="Panel" parent="grid" unique_id=1647974388]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_o3vfj")
 
-[node name="note5" type="Panel" parent="Chart/grid" unique_id=304517903]
+[node name="note5" type="Panel" parent="grid" unique_id=304517903]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_o3vfj")
 
-[node name="note6" type="Panel" parent="Chart/grid" unique_id=2140518938]
+[node name="note6" type="Panel" parent="grid" unique_id=2140518938]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_o3vfj")
 
-[node name="note7" type="Panel" parent="Chart/grid" unique_id=1915809530]
+[node name="note7" type="Panel" parent="grid" unique_id=1915809530]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_o3vfj")
 
-[node name="note8" type="Panel" parent="Chart/grid" unique_id=1225766629]
+[node name="note8" type="Panel" parent="grid" unique_id=1225766629]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_o3vfj")
 
-[node name="note9" type="Panel" parent="Chart/grid" unique_id=799088987]
+[node name="note9" type="Panel" parent="grid" unique_id=799088987]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_o3vfj")
 
-[node name="hitindicator" type="Panel" parent="Chart" unique_id=2077094694]
+[node name="hitindicator" type="Panel" parent="." unique_id=2077094694]
 visible = false
 layout_mode = 0
 offset_left = 996.0
@@ -172,25 +163,25 @@ grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 theme = SubResource("Theme_a78pc")
 
-[node name="UI" type="VBoxContainer" parent="Chart" unique_id=1417320293]
+[node name="UI" type="VBoxContainer" parent="." unique_id=1417320293]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="score" type="Label" parent="Chart/UI" unique_id=822598405]
+[node name="score" type="Label" parent="UI" unique_id=822598405]
 layout_mode = 2
 theme_override_font_sizes/font_size = 62
 text = "00,000,000"
 
-[node name="rating" type="Label" parent="Chart/UI" unique_id=328305970]
+[node name="rating" type="Label" parent="UI" unique_id=328305970]
 layout_mode = 2
 text = "Rating: ..."
 
-[node name="accuracy" type="Label" parent="Chart/UI" unique_id=67795661]
+[node name="accuracy" type="Label" parent="UI" unique_id=67795661]
 layout_mode = 2
 text = "Accuracy: ..."
 
-[node name="Judgement" type="Label" parent="Chart" unique_id=1242531783]
+[node name="Judgement" type="Label" parent="." unique_id=1242531783]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -206,9 +197,9 @@ grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="fade" type="ColorRect" parent="Chart" unique_id=1445139114]
+[node name="fade" type="ColorRect" parent="." unique_id=1445139114]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 color = Color(1, 1, 1, 0)
-script = ExtResource("9_s0vmv")
+script = ExtResource("8_gwsuc")

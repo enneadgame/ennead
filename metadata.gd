@@ -1,10 +1,6 @@
 extends Control
 
-var chart = self.get_parent().find_child("Editor/Chart")
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
+@export var chart:Control = null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
