@@ -1,0 +1,280 @@
+[gd_scene format=3 uid="uid://b5yfa5svd1in5"]
+
+[ext_resource type="FontFile" uid="uid://kecofg1sm44a" path="res://fonts/IosevkaCharon/IosevkaCharon-Regular.ttf" id="1_q0a35"]
+[ext_resource type="Script" uid="uid://b5k5v60xhv1ta" path="res://metadata.gd" id="1_t27w5"]
+[ext_resource type="Script" uid="uid://0gx31ebl15vh" path="res://editor.gd" id="2_q0a35"]
+[ext_resource type="StyleBox" uid="uid://daka5epx6el02" path="res://hitsquare.tres" id="3_1ys5w"]
+[ext_resource type="Shader" uid="uid://du2kjgxnwy0f7" path="res://bgDim.gdshader" id="3_gbsbp"]
+[ext_resource type="StyleBox" uid="uid://cf8ruliyo8aj0" path="res://indicator.tres" id="4_gbsbp"]
+[ext_resource type="Script" uid="uid://cy138wdfpkcfv" path="res://bghandler.gd" id="4_t27w5"]
+[ext_resource type="Script" uid="uid://cl4wgh4r041wg" path="res://setoffset_standalone.gd" id="5_gbsbp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t27w5"]
+bg_color = Color(0.17, 0.17, 0.17, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k4288"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_top = 2
+border_color = Color(1, 0.7, 0.7900001, 0.7490196)
+corner_detail = 1
+
+[sub_resource type="Theme" id="Theme_8yjtx"]
+default_font = ExtResource("1_q0a35")
+default_font_size = 32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k4288"]
+shader = ExtResource("3_gbsbp")
+shader_parameter/dim = 0.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gbsbp"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8yjtx"]
+noise = SubResource("FastNoiseLite_gbsbp")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8yjtx"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3btpq"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Theme" id="Theme_3btpq"]
+Panel/styles/panel = ExtResource("3_1ys5w")
+
+[sub_resource type="Theme" id="Theme_7py46"]
+Panel/styles/panel = ExtResource("4_gbsbp")
+
+[node name="Node2D" type="Node2D" unique_id=1495857416]
+
+[node name="Control" type="Control" parent="." unique_id=642764703]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="TabContainer" type="TabContainer" parent="Control" unique_id=1612880851]
+layout_mode = 0
+offset_right = 1920.0
+theme_override_styles/tabbar_background = SubResource("StyleBoxFlat_t27w5")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_k4288")
+current_tab = 0
+
+[node name="Metadata" type="Control" parent="Control/TabContainer" unique_id=2138512662]
+z_index = -25
+layout_mode = 2
+script = ExtResource("1_t27w5")
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Metadata" unique_id=871848777]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 210.0
+offset_bottom = 50.0
+
+[node name="songtitle" type="TextEdit" parent="Control/TabContainer/Metadata/VBoxContainer" unique_id=632714089]
+custom_minimum_size = Vector2(200, 28)
+layout_mode = 2
+theme_override_constants/line_spacing = -5
+placeholder_text = "Song Title"
+emoji_menu_enabled = false
+
+[node name="songartist" type="TextEdit" parent="Control/TabContainer/Metadata/VBoxContainer" unique_id=256389602]
+custom_minimum_size = Vector2(200, 28)
+layout_mode = 2
+theme_override_constants/line_spacing = -5
+placeholder_text = "Song Artist"
+emoji_menu_enabled = false
+
+[node name="charter" type="TextEdit" parent="Control/TabContainer/Metadata/VBoxContainer" unique_id=657342378]
+custom_minimum_size = Vector2(200, 28)
+layout_mode = 2
+theme_override_constants/line_spacing = -5
+placeholder_text = "Charter"
+emoji_menu_enabled = false
+
+[node name="difficulty" type="TextEdit" parent="Control/TabContainer/Metadata/VBoxContainer" unique_id=974517749]
+custom_minimum_size = Vector2(200, 28)
+layout_mode = 2
+theme_override_constants/line_spacing = -5
+placeholder_text = "Difficulty Name"
+emoji_menu_enabled = false
+
+[node name="Editor" type="Control" parent="Control/TabContainer" unique_id=1723859839]
+visible = false
+z_index = -25
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Chart" type="Control" parent="Control/TabContainer/Editor" unique_id=116712339]
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme = SubResource("Theme_8yjtx")
+script = ExtResource("2_q0a35")
+metadata/score = 0.0
+metadata/difficulty = 10.0
+metadata/rating = 0.0
+metadata/totalAccuracy = 0.0
+metadata/accuracy = 0.0
+metadata/judgements = 0
+metadata/notes = 0
+metadata/ct_miss = 0
+metadata/ct_bad = 0
+metadata/ct_okay = 0
+metadata/ct_good = 0
+metadata/ct_perfect = 0
+metadata/combo = 0
+metadata/songTitle = ""
+metadata/songArtist = ""
+metadata/charter = ""
+metadata/difficultyName = ""
+metadata/ct_great = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/TabContainer/Editor/Chart" unique_id=2086075921]
+material = SubResource("ShaderMaterial_k4288")
+texture = SubResource("NoiseTexture2D_8yjtx")
+script = ExtResource("4_t27w5")
+metadata/dim = 0.3
+metadata/offset = Vector2(0.5, 0.5)
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/TabContainer/Editor/Chart" unique_id=99833730]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -20.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_8yjtx")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3btpq")
+value = 100.0
+show_percentage = false
+script = ExtResource("5_gbsbp")
+metadata/offset = Vector2(0.5, 1)
+
+[node name="GridContainer" type="GridContainer" parent="Control/TabContainer/Editor/Chart" unique_id=1576812124]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 400.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+columns = 3
+
+[node name="note1" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=219693474]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_3btpq")
+
+[node name="note2" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=1098094429]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_3btpq")
+
+[node name="note3" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=514513419]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_3btpq")
+
+[node name="note4" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=1519775340]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_3btpq")
+
+[node name="note5" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=1141754698]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_3btpq")
+
+[node name="note6" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=317065495]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_3btpq")
+
+[node name="note7" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=395499489]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_3btpq")
+
+[node name="note8" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=135521008]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_3btpq")
+
+[node name="note9" type="Panel" parent="Control/TabContainer/Editor/Chart/GridContainer" unique_id=124082858]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_3btpq")
+
+[node name="hitindicator" type="Panel" parent="Control/TabContainer/Editor/Chart" unique_id=84869820]
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 996.0
+offset_top = 508.0
+offset_right = 1028.0
+offset_bottom = 572.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = SubResource("Theme_7py46")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Editor/Chart" unique_id=1708598027]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="score" type="Label" parent="Control/TabContainer/Editor/Chart/VBoxContainer" unique_id=275652540]
+layout_mode = 2
+theme_override_font_sizes/font_size = 62
+text = "00,000,000"
+
+[node name="rating" type="Label" parent="Control/TabContainer/Editor/Chart/VBoxContainer" unique_id=95965989]
+layout_mode = 2
+text = "Rating: ..."
+
+[node name="accuracy" type="Label" parent="Control/TabContainer/Editor/Chart/VBoxContainer" unique_id=1022562667]
+layout_mode = 2
+text = "Accuracy: ..."
+
+[node name="Judgement" type="Label" parent="Control/TabContainer/Editor/Chart" unique_id=1830048775]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="music" type="AudioStreamPlayer" parent="Control/TabContainer/Editor" unique_id=750700130]
+
+[connection signal="chart_loaded" from="Control/TabContainer/Editor/Chart" to="Control/TabContainer/Metadata" method="_on_chart_chart_loaded"]

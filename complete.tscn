@@ -1,0 +1,296 @@
+[gd_scene format=3 uid="uid://ba8ahlopj4r0v"]
+
+[ext_resource type="FontFile" uid="uid://kecofg1sm44a" path="res://fonts/IosevkaCharon/IosevkaCharon-Regular.ttf" id="1_bbj6d"]
+[ext_resource type="Script" uid="uid://cymfajcxo65tm" path="res://fullsize.gd" id="1_mq70s"]
+[ext_resource type="Script" uid="uid://c3rxfhbqcbmqi" path="res://completeScreenProc.gd" id="3_2y7ur"]
+[ext_resource type="FontFile" uid="uid://wi7l3qowhu4a" path="res://fonts/IosevkaCharon/IosevkaCharon-Bold.ttf" id="4_2y7ur"]
+[ext_resource type="Script" uid="uid://cl4wgh4r041wg" path="res://setoffset_standalone.gd" id="5_31b5x"]
+
+[sub_resource type="Theme" id="Theme_2y7ur"]
+default_font = ExtResource("1_bbj6d")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mq70s"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.09, 0.09, 0.09, 0.77254903)
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htuno"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 1, 1, 0.1254902)
+corner_detail = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_31b5x"]
+font_size = 125
+font_color = Color(0, 0, 0, 1)
+outline_size = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_81npm"]
+font_size = 74
+
+[sub_resource type="LabelSettings" id="LabelSettings_765hr"]
+font_size = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_81npm"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_765hr"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4nplk"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.6)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wfu1c"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_765vx"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[node name="Node2D" type="Node2D" unique_id=1762993527]
+
+[node name="Control" type="Control" parent="." unique_id=903517475]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1.0
+offset_right = 1919.0
+offset_bottom = 1080.0
+theme = SubResource("Theme_2y7ur")
+script = ExtResource("1_mq70s")
+
+[node name="ProgressBar" type="ProgressBar" parent="Control" unique_id=2065118154]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/background = SubResource("StyleBoxFlat_mq70s")
+theme_override_styles/fill = SubResource("StyleBoxFlat_htuno")
+min_value = 50.0
+value = 87.0
+fill_mode = 3
+show_percentage = false
+script = ExtResource("1_mq70s")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=1493237085]
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 600.0
+alignment = 1
+script = ExtResource("3_2y7ur")
+metadata/offset = Vector2(0.5, 0.5)
+
+[node name="rank" type="Label" parent="Control/VBoxContainer" unique_id=41404813]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_2y7ur")
+text = "--"
+label_settings = SubResource("LabelSettings_31b5x")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="score" type="Label" parent="Control/VBoxContainer" unique_id=358171804]
+layout_mode = 2
+text = "-,---,---"
+label_settings = SubResource("LabelSettings_81npm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="stats" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=459000178]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="accuracy" type="Label" parent="Control/VBoxContainer/stats" unique_id=379747864]
+layout_mode = 2
+text = "--.--%"
+label_settings = SubResource("LabelSettings_765hr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="rating" type="Label" parent="Control/VBoxContainer/stats" unique_id=855111858]
+layout_mode = 2
+text = "--.--*"
+label_settings = SubResource("LabelSettings_765hr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="combo" type="Label" parent="Control/VBoxContainer/stats" unique_id=2142280666]
+layout_mode = 2
+text = "x--,---"
+label_settings = SubResource("LabelSettings_765hr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="separator" type="Control" parent="Control/VBoxContainer" unique_id=739725579]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="ratings" type="GridContainer" parent="Control/VBoxContainer" unique_id=875432565]
+layout_mode = 2
+columns = 3
+
+[node name="perfect" type="VBoxContainer" parent="Control/VBoxContainer/ratings" unique_id=464580058]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="Control/VBoxContainer/ratings/perfect" unique_id=1376119639]
+layout_mode = 2
+text = "Perfect"
+label_settings = SubResource("LabelSettings_765hr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="count" type="Label" parent="Control/VBoxContainer/ratings/perfect" unique_id=82315760]
+layout_mode = 2
+text = "-"
+label_settings = SubResource("LabelSettings_765hr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="great" type="VBoxContainer" parent="Control/VBoxContainer/ratings" unique_id=2009406185]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="Control/VBoxContainer/ratings/great" unique_id=1798141714]
+layout_mode = 2
+text = "Great"
+label_settings = SubResource("LabelSettings_765hr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="count" type="Label" parent="Control/VBoxContainer/ratings/great" unique_id=1846150588]
+layout_mode = 2
+text = "-"
+label_settings = SubResource("LabelSettings_765hr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="good" type="VBoxContainer" parent="Control/VBoxContainer/ratings" unique_id=1721725700]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="Control/VBoxContainer/ratings/good" unique_id=268923359]
+layout_mode = 2
+text = "Good"
+label_settings = SubResource("LabelSettings_765hr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="count" type="Label" parent="Control/VBoxContainer/ratings/good" unique_id=1441774188]
+layout_mode = 2
+text = "-"
+label_settings = SubResource("LabelSettings_765hr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="okay" type="VBoxContainer" parent="Control/VBoxContainer/ratings" unique_id=1733994233]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="Control/VBoxContainer/ratings/okay" unique_id=940200737]
+layout_mode = 2
+text = "Okay"
+label_settings = SubResource("LabelSettings_765hr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="count" type="Label" parent="Control/VBoxContainer/ratings/okay" unique_id=578839887]
+layout_mode = 2
+text = "-"
+label_settings = SubResource("LabelSettings_765hr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="bad" type="VBoxContainer" parent="Control/VBoxContainer/ratings" unique_id=343215133]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="Control/VBoxContainer/ratings/bad" unique_id=1586585612]
+layout_mode = 2
+text = "Bad"
+label_settings = SubResource("LabelSettings_765hr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="count" type="Label" parent="Control/VBoxContainer/ratings/bad" unique_id=1345732322]
+layout_mode = 2
+text = "-"
+label_settings = SubResource("LabelSettings_765hr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="miss" type="VBoxContainer" parent="Control/VBoxContainer/ratings" unique_id=997830466]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="Control/VBoxContainer/ratings/miss" unique_id=1260316801]
+layout_mode = 2
+text = "Miss"
+label_settings = SubResource("LabelSettings_765hr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="count" type="Label" parent="Control/VBoxContainer/ratings/miss" unique_id=596689918]
+layout_mode = 2
+text = "-"
+label_settings = SubResource("LabelSettings_765hr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="fade" type="ColorRect" parent="Control" unique_id=43266912]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_mq70s")
+
+[node name="returnToMenu" type="Button" parent="Control" unique_id=1838236198]
+layout_mode = 0
+offset_right = 204.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_81npm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_765hr")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4nplk")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_wfu1c")
+theme_override_styles/focus = SubResource("StyleBoxFlat_765vx")
+text = "Back to menu"
+script = ExtResource("5_31b5x")
+metadata/offset = Vector2(1, 1)
